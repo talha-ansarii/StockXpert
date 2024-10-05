@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Line } from 'react-chartjs-2';
-import 'tailwindcss/tailwind.css';
+import React, { useEffect, useState } from "react";
+import { Line } from "react-chartjs-2";
+import "tailwindcss/tailwind.css";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,8 +9,8 @@ import {
   LineElement,
   Title,
   Tooltip,
-  Legend
-} from 'chart.js';
+  Legend,
+} from "chart.js";
 
 ChartJS.register(
   CategoryScale,
@@ -25,32 +25,39 @@ ChartJS.register(
 const Homepage = () => {
   // State for stock data and chart data
   const [stockData, setStockData] = useState([
-    { name: 'TATA Steel', price: 500, change: '+1.5%', volume: '1.2M' },
-    { name: 'Reliance', price: 2000, change: '-0.75%', volume: '3.5M' },
-    { name: 'Infosys', price: 1500, change: '+0.9%', volume: '1.8M' },
-    { name: 'Wipro', price: 700, change: '+2.0%', volume: '2.2M' },
-    { name: 'ICICI Bank', price: 950, change: '-1.25%', volume: '2.5M' },
+    { name: "TATA Steel", price: 500, change: "+1.5%", volume: "1.2M" },
+    { name: "Reliance", price: 2000, change: "-0.75%", volume: "3.5M" },
+    { name: "Infosys", price: 1500, change: "+0.9%", volume: "1.8M" },
+    { name: "Wipro", price: 700, change: "+2.0%", volume: "2.2M" },
+    { name: "ICICI Bank", price: 950, change: "-1.25%", volume: "2.5M" },
   ]);
 
   const [chartData, setChartData] = useState({
-    labels: ['10:00 AM', '11:00 AM', '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM'],
+    labels: [
+      "10:00 AM",
+      "11:00 AM",
+      "12:00 PM",
+      "1:00 PM",
+      "2:00 PM",
+      "3:00 PM",
+    ],
     datasets: [
       {
-        label: 'Sensex Index',
+        label: "Sensex Index",
         data: [49000, 49200, 49300, 49500, 49400, 49600],
         fill: false,
-        borderColor: 'rgb(75, 192, 192)',
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: "rgb(75, 192, 192)",
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
         tension: 0.1,
       },
       {
-        label: 'Nifty Index',
+        label: "Nifty Index",
         data: [14500, 14600, 14650, 14700, 14680, 14800],
         fill: false,
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.2)",
         tension: 0.1,
-      }
+      },
     ],
   });
 
@@ -58,34 +65,48 @@ const Homepage = () => {
     // Function to simulate real-time stock price updates
     const updateMarketData = () => {
       // Update stock prices
-      setStockData(prevStockData => prevStockData.map(stock => {
-        // Randomly generate price changes
-        const priceChange = Math.floor(Math.random() * 10) - 5; // Change can be -5 to +4
-        const newPrice = Math.max(0, stock.price + priceChange); // Ensure price doesn't go negative
-        const newChange = `${priceChange > 0 ? '+' : ''}${priceChange}%`;
-        
-        return {
-          ...stock,
-          price: newPrice, // Keep as number
-          change: newChange,
-        };
-      }));
+      setStockData((prevStockData) =>
+        prevStockData.map((stock) => {
+          // Randomly generate price changes
+          const priceChange = Math.floor(Math.random() * 10) - 5; // Change can be -5 to +4
+          const newPrice = Math.max(0, stock.price + priceChange); // Ensure price doesn't go negative
+          const newChange = `${priceChange > 0 ? "+" : ""}${priceChange}%`;
+
+          return {
+            ...stock,
+            price: newPrice, // Keep as number
+            change: newChange,
+          };
+        })
+      );
 
       // Update chart data with random index values
-      setChartData(prevChartData => {
+      setChartData((prevChartData) => {
         const newSensexData = [...prevChartData.datasets[0].data];
         const newNiftyData = [...prevChartData.datasets[1].data];
 
         // Shift data to the left and add new random values
         newSensexData.shift();
         newNiftyData.shift();
-        
+
         // Generate new data points based on the last known values
         const lastSensexValue = newSensexData[newSensexData.length - 1];
         const lastNiftyValue = newNiftyData[newNiftyData.length - 1];
 
-        const newSensexValue = Math.max(0, lastSensexValue + (Math.random() > 0.5 ? Math.floor(Math.random() * 200) : -Math.floor(Math.random() * 200)));
-        const newNiftyValue = Math.max(0, lastNiftyValue + (Math.random() > 0.5 ? Math.floor(Math.random() * 100) : -Math.floor(Math.random() * 100)));
+        const newSensexValue = Math.max(
+          0,
+          lastSensexValue +
+            (Math.random() > 0.5
+              ? Math.floor(Math.random() * 200)
+              : -Math.floor(Math.random() * 200))
+        );
+        const newNiftyValue = Math.max(
+          0,
+          lastNiftyValue +
+            (Math.random() > 0.5
+              ? Math.floor(Math.random() * 100)
+              : -Math.floor(Math.random() * 100))
+        );
 
         newSensexData.push(newSensexValue);
         newNiftyData.push(newNiftyValue);
@@ -100,8 +121,8 @@ const Homepage = () => {
             {
               ...prevChartData.datasets[1],
               data: newNiftyData,
-            }
-          ]
+            },
+          ],
         };
       });
     };
@@ -117,24 +138,24 @@ const Homepage = () => {
     responsive: true,
     plugins: {
       legend: {
-        position: 'top',
+        position: "top",
       },
       title: {
         display: true,
-        text: 'Market Performance',
+        text: "Market Performance",
       },
     },
     scales: {
       x: {
         title: {
           display: true,
-          text: 'Time',
+          text: "Time",
         },
       },
       y: {
         title: {
           display: true,
-          text: 'Index Value',
+          text: "Index Value",
         },
       },
     },
@@ -146,10 +167,17 @@ const Homepage = () => {
       <div>
         <nav className="bg-blue-900 text-white p-4">
           <div className="container mx-auto flex justify-between items-center">
-            <h1 className="text-2xl font-bold">BSE Tracker</h1>
+            <h1 className="text-2xl font-bold">StockXpert</h1>
             <div>
-              <a href="/" className="px-4 hover:text-blue-300">Home</a>
-              <a href="/login" className="px-4 hover:text-blue-300">View Reports</a>
+              <a href="/" className="px-4 hover:text-blue-300">
+                Home
+              </a>
+              <a href="/login" className="px-4 hover:text-blue-300">
+                View Reports
+              </a>
+              <a href="/subscription" className="px-4 hover:text-blue-300">
+                Subscribe
+              </a>
             </div>
           </div>
         </nav>
@@ -157,7 +185,8 @@ const Homepage = () => {
           <div className="container flex justify-around mx-auto overflow-x-auto whitespace-nowrap">
             {stockData.map((stock) => (
               <span key={stock.name} className="inline-block mr-8">
-                {stock.name}: ₹{parseFloat(stock.price).toFixed(2)} ({stock.change})
+                {stock.name}: ₹{parseFloat(stock.price).toFixed(2)} (
+                {stock.change})
               </span>
             ))}
           </div>
@@ -187,10 +216,24 @@ const Homepage = () => {
               <tbody>
                 {stockData.map((stock, idx) => (
                   <tr key={idx} className="hover:bg-gray-200">
-                    <td className="border border-gray-300 px-4 py-2">{stock.name}</td>
-                    <td className="border border-gray-300 px-4 py-2">₹{parseFloat(stock.price).toFixed(2)}</td>
-                    <td className={`border border-gray-300 px-4 py-2 ${stock.change.includes('+') ? 'text-green-500' : 'text-red-500'}`}>{stock.change}</td>
-                    <td className="border border-gray-300 px-4 py-2">{stock.volume}</td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {stock.name}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      ₹{parseFloat(stock.price).toFixed(2)}
+                    </td>
+                    <td
+                      className={`border border-gray-300 px-4 py-2 ${
+                        stock.change.includes("+")
+                          ? "text-green-500"
+                          : "text-red-500"
+                      }`}
+                    >
+                      {stock.change}
+                    </td>
+                    <td className="border border-gray-300 px-4 py-2">
+                      {stock.volume}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -202,10 +245,9 @@ const Homepage = () => {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-4 ">
         <div className="container mx-auto text-center">
-          <p>&copy; 2024 BSE Tracker. All rights reserved.</p>
+          <p>&copy; 2024 StockXpert. All rights reserved.</p>
         </div>
       </footer>
-      
     </div>
   );
 };

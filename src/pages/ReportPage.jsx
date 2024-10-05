@@ -16,6 +16,8 @@ const ReportPage = () => {
           <h1 className="text-2xl font-bold">Stock Tracker</h1>
           <div>
             <a href="/" className="px-4 hover:text-blue-300">Home</a>
+            <a href="/subscription" className="px-4 hover:text-blue-300">Subscribe</a>
+
           </div>
         </div>
       </nav>
