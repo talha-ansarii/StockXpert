@@ -12,6 +12,8 @@ const companies = [
 const ReportPage = () => {
   const [selectedCompany, setSelectedCompany] = useState(null);
 
+ 
+
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Navigation Bar */}
@@ -67,8 +69,8 @@ const ReportPage = () => {
             </div>
             {/* Insights Section */}
             <div className="bg-white shadow-lg rounded-lg p-6 transition transform hover:shadow-xl ">
-              <h2 className="text-xl font-semibold mb-4 text-blue-900">{selectedCompany.name} Insights</h2>
-              <Insights company={selectedCompany.name} />
+              <h2 className="text-xl font-semibold mb-4 text-blue-900">Insights</h2>
+              <Insights  company={selectedCompany.name} />
             </div>
 
             {/* Chart Section */}
