@@ -77,7 +77,7 @@ const Homepage = () => {
   }, []);
 
   return (
-    <div className="bg-gray-100 flex justify-between flex-col h-screen">
+    <div className="bg-gray-100 flex justify-between h-screen flex-col ">
       {/* Navigation Bar */}
       <div>
         <nav className="bg-blue-900 text-white p-4">
@@ -137,6 +137,9 @@ const Homepage = () => {
         </div>
       </div>
 
+      
+  
+
       {/* Chatbot Icon */}
       <button
         className="fixed bottom-4 right-4 bg-blue-600 text-white rounded-full p-4 shadow-lg hover:bg-blue-500 transition duration-300"
@@ -162,7 +165,7 @@ const Homepage = () => {
       {chatbotOpen && (
         <div className="fixed bottom-16 right-4 bg-gray-200 shadow-lg rounded-lg w-80 p-4">
           <div className="flex justify-between items-center">
-            <h3 className="text-lg font-bold">Chatbot</h3>
+            <h3 className="text-lg font-bold">Tradbot</h3>
             <button onClick={toggleChatbot}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
